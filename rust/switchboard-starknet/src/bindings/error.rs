@@ -56,11 +56,11 @@ impl std::error::Error for SwitchboardClientError {}
 // Self::InvalidEnv(value.to_string())
 // }
 // }
-impl From<ethers::abi::ParseError> for SwitchboardClientError {
-    fn from(value: ethers::abi::ParseError) -> Self {
-        Self::RpcURLParseError(value.to_string())
-    }
-}
+// impl From<> for SwitchboardClientError {
+//     fn from(value: ) -> Self {
+//         Self::RpcURLParseError(value.to_string())
+//     }
+// }
 impl std::fmt::Display for SwitchboardClientError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:#?}", self)

@@ -2,7 +2,7 @@ use std::env;
 use std::sync::Arc;
 
 use crate::bindings::error::SwitchboardClientError;
-use crate::bindings::switchboard;
+// use crate::bindings::switchboard;
 use crate::utils::{generate_signer, load_env_address};
 // use ethers::abi::AbiDecode;
 // // use ethers::prelude::k256::ecdsa::SigningKey;
@@ -10,20 +10,17 @@ use crate::utils::{generate_signer, load_env_address};
 // use ethers::providers::{JsonRpcClient, Provider};
 // use ethers::signers::{Signer, Wallet};
 // use ethers::types::{Address, Bytes, U256};
-use serde_json;
-use starknet::core::crypto::Signature;
+// use serde_json;
+// use starknet::core::crypto::Signature;
 use switchboard_common::{
-    ChainResultInfo, EvmTransaction, FunctionResult, FunctionResultV0, Gramine, StarknetCall,
+    ChainResultInfo, FunctionResult, FunctionResultV0, Gramine, StarknetCall,
     StarknetFunctionResult,
 };
 
 use starknet::{
-    accounts::{Call as NativeCall, ExecutionEncoding, SingleOwnerAccount},
-    core::types::{BlockId, BlockTag, EventFilter, FieldElement},
-    core::utils::starknet_keccak,
-    macros::{abigen, felt},
-    providers::{jsonrpc::HttpTransport, JsonRpcClient, Provider},
-    signers::{LocalWallet, Signer, SigningKey},
+    core::types::FieldElement,
+    accounts::Call as NativeCall,
+    signers::{LocalWallet, SigningKey},
 };
 // pub type EVMMiddleware<T> = SignerMiddleware<Provider<T>, Wallet<SigningKey>>;
 use starknet_crypto::poseidon_hash_many;

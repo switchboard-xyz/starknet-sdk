@@ -3,12 +3,8 @@ use crate::bindings::error::SwitchboardClientError;
 // use ethers::{prelude::k256::ecdsa::SigningKey, signers::Wallet, types::Address};
 use rand::SeedableRng;
 use starknet::{
-    accounts::{ExecutionEncoding, SingleOwnerAccount},
-    core::types::{BlockId, BlockTag, EventFilter, FieldElement},
-    core::utils::starknet_keccak,
-    macros::{abigen, felt},
-    providers::{jsonrpc::HttpTransport, JsonRpcClient, Provider},
-    signers::{LocalWallet, SigningKey},
+    core::types::FieldElement,
+    signers::SigningKey,
 };
 use std::env;
 use std::result::Result;

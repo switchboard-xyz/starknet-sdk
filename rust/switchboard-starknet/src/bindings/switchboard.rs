@@ -1,3 +1,3 @@
 use starknet::macros::abigen;
 
-abigen!(Switchboard, "./rust/switchboard-starknet/Switchboard.json");
+abigen!(Switchboard, "./rust/switchboard-starknet/src/bindings/Switchboard.json");

@@ -111,29 +111,23 @@ impl StarknetFunctionRunner {
         //     .map(|(i, c)| (c.clone(), i))
         //     .collect();
 
-        let (txs, signatures): (Vec<StarknetCall>, Vec<Vec<FieldElement>>) = calls
+        let (txs, signatures): (Vec<StarknetCall>, Vec<Vec<Vec<u8>>>) = calls
             .into_iter()
-            .map(|c| {
+            .map(|call| {
                 // TODO: gas limit should be moved to function settings on-chain
-                // let calldata: Vec<Vec<u8>> = c
-                // .calldata
-                // .into_iter()
-                // .map(|p| p.to_bytes_be().to_vec())
-                // .collect();
-                let mut txn = StarknetCall {
-                    to: c.to,
-                    selector: c.selector,
-                    calldata: c.calldata,
+               
+                let txn = StarknetCall {
+                    to: call.to.to_bytes_be().to_vec(),
+                    selector: call.selector.to_bytes_be().to_vec(),
+                    calldata: call.calldata.iter().map(|p| p.to_bytes_be().to_vec()).collect(),
                 };
-                let mut to_hash = vec![txn.to, txn.selector];
-                to_hash.append(&mut txn.calldata);
-                let call_hash = poseidon_hash_many(to_hash.as_slice());
+                let mut to_hash = vec![call.to, call.selector];
+                let mut calldata = call.calldata;
+                to_hash.append(&mut calldata);
+                let call_hash: FieldElement = poseidon_hash_many(to_hash.as_slice());
                 let signature = self.enclave_key.sign(&call_hash).unwrap();
 
-                // let signed_txn = Call {
-                //     data: transaction,
-                //     signature,
-                // };
+                
                 // let eip712_hash = eip712::get_transaction_hash(
                 //     "Switchboard".to_string(),
                 //     "0.0.1".to_string(),
@@ -161,7 +155,7 @@ impl StarknetFunctionRunner {
                 //             .to_vec(),
                 //     ),
                 // )
-                let sig_encoded = vec![signature.r, signature.s];
+                let sig_encoded = vec![signature.r.to_bytes_be().to_vec(), signature.s.to_bytes_be().to_vec()];
                 (txn, sig_encoded)
             })
             .unzip();
@@ -211,7 +205,7 @@ impl StarknetFunctionRunner {
                 .scalar()
                 .to_bytes_be()
                 .to_vec(),
-            fn_request_key: fn_request_key,
+            fn_request_key,
             fn_request_hash: Vec::new(),
             chain_result_info,
             error_code: 0,

@@ -31,7 +31,7 @@ rand = "0.8.5"
 chrono = "0.4.25"
 cron = "0.12.0"
 tokio = { version = "1.28.2", features = ["full"] }
-switchboard-common = { version = "0.9", features = [
+switchboard-common = { version = "0.9.4", features = [
     "client",
 ] }
 sha2 = "0.10.6"

@@ -26,7 +26,7 @@ Switchboard Data Feeds are powered by Switchboard Functions. You can find the so
 - [receiver.cairo](https://github.com/switchboard-xyz/starknet-sdk/blob/main/examples/OracleExample/contracts/PriceOracle/src/components/receiver.cairo) - The main entry point for the Switchboard Feed Function. This contract is deployed by the Switchboard, and is responsible for receiving data from the off-chain Switchboard Function, and making it available to other contracts.
 - [Main.rs](https://github.com/switchboard-xyz/starknet-sdk/blob/main/examples/OracleExample/switchboard-function/src/main.rs) - The off-chain Switchboard Function that powers the Switchboard Feed. This function is responsible for fetching data from an external API, and submitting it to the Switchboard Receiver contract.
 
-You can find existing Switchboard Feeds and their ID's for accessing in solidity at [app.switchboard.xyz](https://app.switchboard.xyz/).
+You can find existing Switchboard Feeds and their ID's for accessing in cairo at [app.switchboard.xyz](https://app.switchboard.xyz/).
 
 You can use this simple price function (which supplies 20+ feeds from top exchanges!) and build custom functionality on top of it
 

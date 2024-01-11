@@ -1,0 +1,30 @@
+[package]
+name = "base-oracle-function"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "base-oracle-function"
+path = "src/main.rs"
+
+[dependencies]
+tokio = "^1"
+futures = "0.3"
+serde = "^1"
+serde_json = "^1"
+switchboard-utils = { version = "0.8.0" }
+rand = "0.8.5"
+sb-starknet-abigen-macros = "0.1.2"
+sb-starknet-abigen-parser = "0.1.2"
+switchboard-starknet-sdk = "0.0.5"
+switchboard-common = { version = "0.11.1", features = ["client"] }
+switchboard-starknet-macros = "0.0.2"
+bytemuck = "1.13.1"
+rust_decimal = { version = "1.30.0", features = ["maths", "serde"] }
+num_enum = "0.7.0"
+starknet = "0.8.0"
+url = "2.2.2"
+
+[dev-dependencies]
+env_logger = "0.10"
+test-log = "0.2.12"

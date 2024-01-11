@@ -1,3 +1,0 @@
-# Randomness Callback Example
-
-TBD.

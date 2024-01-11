@@ -1,0 +1,28 @@
+[workspace.package]
+name = "Examples"
+version = "0.0.0"
+authors = ["Albert Hermida <albert@switchboard.xyz>"]
+homepage = "https://switchboard.xyz"
+
+[workspace]
+members = [
+    "./contracts/PriceOracle",
+]
+
+[workspace.dependencies]
+# Alexandria is a community maintained standard library for Cairo 1.0.
+alexandria_data_structures = { git = "https://github.com/keep-starknet-strange/alexandria" }
+openzeppelin = { git = "https://github.com/OpenZeppelin/cairo-contracts.git" }
+snforge_std = { git = "https://github.com/foundry-rs/starknet-foundry" }
+starknet = ">=2.3.1"
+
+[workspace.tool.snforge]
+exit_first = true # Will exit after the first failed test.
+
+[workspace.tool.fmt]
+max_line_length = 120
+sort-module-level-items = true
+tab_size = 2
+
+[scripts]
+all = "snforge test"

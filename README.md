@@ -2,106 +2,98 @@
 
 ![Switchboard Logo](https://github.com/switchboard-xyz/sbv2-core/raw/main/website/static/img/icons/switchboard/avatar.png)
 
-# Switchboard x EVM
+# Switchboard x Starknet
 
-> A collection of libraries and examples for interacting with Switchboard on EVM
-> chains.
+> A collection of libraries and examples for interacting with Switchboard on Starknet
 
-[![NPM Badge](https://img.shields.io/github/package-json/v/switchboard-xyz/sbv2-evm?color=red&filename=javascript%2Fevm.js%2Fpackage.json&label=%40switchboard-xyz%2Fevm.js&logo=npm)](https://www.npmjs.com/package/@switchboard-xyz/evm.js)
+[![NPM Badge](https://img.shields.io/github/package-json/v/switchboard-xyz/sbv2-evm?color=red&filename=javascript%2Fstarknet.js%2Fpackage.json&label=%40switchboard-xyz%2Fstarknet.js&logo=npm)](https://www.npmjs.com/package/@switchboard-xyz/starknet.js)
 
 </div>
 
 ## Getting Started
 
 To get started, clone the
-[evm-sdk](https://github.com/switchboard-xyz/evm-sdk) repository.
-
-```bash
-git clone https://github.com/switchboard-xyz/evm-sdk
-```
-
-Then install the dependencies
-
-```bash
-cd evm-sdk
-pnpm install
-pnpm build
-```
+[starknet](https://github.com/switchboard-xyz/starknet-sdk) repository.
 
 ## Switchboard Functions
 
 Switchboard V3 revolves around the concept of a `Switchboard Function`. Functions are the core building block of Switchboard. They are the unit of work that is performed by the Switchboard network. Functions can be user defined, and can be composed together to create more complex functions. Function calls can be initialized on-chain, or on a schedule.
 
-Get started writing Switchboard Functions with our [functions template repository](https://github.com/switchboard-xyz/evm-functions-template).
-
 ## Switchboard Feeds
 
-Switchboard Data Feeds are powered by Switchboard Functions. You can find the source code (contracts and off-chain logic) for the Switchboard Function that powers the available feeds in the [functions repository](https://github.com/switchboard-xyz/evm-functions-template/rust/01_price_oracle).
+Switchboard Data Feeds are powered by Switchboard Functions. You can find the source code (contracts and off-chain logic) for the Switchboard Function that powers the available feeds in the [functions repository](https://github.com/switchboard-xyz/starknet-sdk/examples/OracleExample).
 
-- [Receiver.sol](https://github.com/switchboard-xyz/evm-functions-template/rust/01_price_oracle/contracts/src/Receiver/Receiver.sol) - The main entry point for the Switchboard Feed Function. This contract is deployed by the Switchboard, and is responsible for receiving data from the off-chain Switchboard Function, and making it available to other contracts.
-- [Main.rs](https://github.com/switchboard-xyz/evm-functions-template/rust/01_price_oracle/switchboard-function/src/main.rs) - The off-chain Switchboard Function that powers the Switchboard Feed. This function is responsible for fetching data from an external API, and submitting it to the Switchboard Receiver contract.
+- [receiver.cairo](https://github.com/switchboard-xyz/starknet-sdk/examples/OracleExample/contracts/PriceOracle/src/components/receiver.cairo) - The main entry point for the Switchboard Feed Function. This contract is deployed by the Switchboard, and is responsible for receiving data from the off-chain Switchboard Function, and making it available to other contracts.
+- [Main.rs](https://github.com/switchboard-xyz/starknet-sdk/examples/OracleExample/switchboard-function/src/main.rs) - The off-chain Switchboard Function that powers the Switchboard Feed. This function is responsible for fetching data from an external API, and submitting it to the Switchboard Receiver contract.
 
 You can find existing Switchboard Feeds and their ID's for accessing in solidity at [app.switchboard.xyz](https://app.switchboard.xyz/).
 
-You can use this simple price function (which supplies 500+ feeds from top exchanges!) and build custom functionality on top of it
+You can use this simple price function (which supplies 20+ feeds from top exchanges!) and build custom functionality on top of it
 
-<!--
 ## Addresses
 
-### Arbitrum
+### Starknet
 
-The following addresses can be used with the Switchboard deployment on Arbitrum
+The following addresses can be used with the Switchboard deployment on Starknet
 
 #### Mainnet
 
-| Account              | Address                                      |
-| -------------------- | -------------------------------------------- |
-| Program ID           | `0xd54579539E1334E856b983745DA26BEc3efB3C4D` |
-| Attestation Service  | `0x316fBe540C719970E6427ccD8590d7E0a2814C5D` |
-| Permissionless Queue | `0x127f24013CaADF770F4b514c86344dD4f38d80c2` |
+| Account                  | Address                                                              |
+| ------------------------ | -------------------------------------------------------------------- |
+| Switchboard Address      | `0x0728d32b3d508dbe5989824dd0edb1e03b8a319d561b9ec6507dff245a95c52f` |
+| Switchboard Push Address | `0x02b5ebc4a7149600ca4890102bdb6b7d6daac2fbb9d9ccd01f7198ca29107ec4` |
+| Permissionless Queue ID  | `0x0000000000000000000000000000000000000000000000000000000000000001` |
 
 #### Testnet (Goerli)
 
-| Account              | Address                                      |
-| -------------------- | -------------------------------------------- |
-| Program ID           | `0x2802f459D1515257b73fAaa6dD9512E7cDE04592` |
-| Attestation Service  | `0xFC8e90254194B038F2e233129202f096a8507e80` |
-| Permissionless Queue | `0x3E1A13b2d6E0665A32d8638eA216A16953E8a9aF` |
+| Account                  | Address                                                              |
+| ------------------------ | -------------------------------------------------------------------- |
+| Switchboard Address      | `0x026183fd8df673e4b2a007eec9d70bc38eb8a0df960dd5b0c57a9250ae2e63ac` |
+| Switchboard Push Address | `0x014d660768cb98256ceb18d821fd02fd1b54b6028679ceca3dbe03389228f285` |
+| Permissionless Queue ID  | `0x0000000000000000000000000000000000000000000000000000000000000001` |
 
-### CoreDAO
+### Using Switchboard
 
-The following addresses can be used with the Switchboard deployment on Coredao
+Open `src/lib.cairo` and write your contract.
 
-#### Mainnet
+The easiest way to use Switchboard on Starknet is to use the following simple interface:
 
-| Account              | Address                                      |
-| -------------------- | -------------------------------------------- |
-| Program ID           | `0x73d6C66874e570f058834cAA666b2c352F1C792D` |
-| Permissioned Queue   | `0x1e373Ac0a299E6CCfE6bd333025E5Ebef9Eca2Dd` |
-| Permissionless Queue | `0x628D9A4109FD1B94348b7866923A4b7aae3D61c6` |
+```cairo
+// This will generate ISwitchboardPushDispatcher and ISwitchboardPushDispatcherTrait
+#[starknet::interface]
+trait ISwitchboardPush<State> {
+    fn get_latest_result(self: @State, feed_id: felt252) -> (u128, u64);
+}
+```
 
-#### Testnet
+```cairo
+#[starknet::contract]
+mod MyProject {
+    #[constructor]
+    fn constructor(
+        ref self: ContractState,
+        switchboard_address: ContractAddress,
+    ) {
+        ...
+    }
 
-| Account              | Address                                      |
-| -------------------- | -------------------------------------------- |
-| Program ID           | `0x1bAB46734e02d25D9dF5EE725c0646b39C0c5224` |
-| Program Authority    | `0xB76E3A368dA2B6E6E5F5F686046C7cb0a3e1Bd1A` |
-| Permissionless Queue | `0x934eb1F9D0f59695050f761DC64e443E5030A569` | -->
+    // ETH/USD Feed ID: 0x4554482f555344
+    // BTC/USD Feed ID: 0x4254432f555344
+    fn read_switchboard_value(
+        ref self: ContractState,
+        feed_id: felt252,
+    ) -> (u128, u64) {
+        // mainnet address: 0x02b5ebc4a7149600ca4890102bdb6b7d6daac2fbb9d9ccd01f7198ca29107ec4
+        // testnet (goerli) address: 0x014d660768cb98256ceb18d821fd02fd1b54b6028679ceca3dbe03389228f285
+        let dispatcher = ISwitchboardPushDispatcher { contract_address: self.switchboard_address.read() };
+        let (value, timestamp) = dispatcher.get_latest_result(feed_id);
+        (value, timestamp)
+    }
+}
+```
 
-## Clients
-
-| **Lang**   | **Name**                                     | **Description**                                                                   |
-| ---------- | -------------------------------------------- | --------------------------------------------------------------------------------- |
-| Solidity   | [ISwitchboard](solidity/ISwitchboard)        | A Solidity contract to read a Switchboard data feed.                              |
-| Solidity   | [ILegacyOracle](solidity/ILegacyOracle)      | A Solidity contract to read a Switchboard data feed with a legacy oracle adapter. |
-| Javascript | [@switchboard-xyz/evm.js](javascript/evm.js) | A Typescript client to interact with Switchboard on EVM chains.                   |
-
-## Example Contracts
-
-| **Lang** | **Name**                                                     | **Description**                                                                 |
-| -------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| Solidity | [feed-parser](contracts/read-feed)                           | An example Solidity contract demonstrating how to read a Switchboard data feed. |
-| Solidity | [read-feed-aggregator-v3](contracts/read-feed-aggregator-v3) | An example Solidity contract demonstrating how to read a Switchboard data feed. |
+<!-- ## Clients
+## Example Contracts -->
 
 ## Troubleshooting
 

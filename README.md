@@ -6,8 +6,6 @@
 
 > A collection of libraries and examples for interacting with Switchboard on Starknet
 
-[![NPM Badge](https://img.shields.io/github/package-json/v/switchboard-xyz/sbv2-evm?color=red&filename=javascript%2Fstarknet.js%2Fpackage.json&label=%40switchboard-xyz%2Fstarknet.js&logo=npm)](https://www.npmjs.com/package/@switchboard-xyz/starknet.js)
-
 </div>
 
 ## Getting Started

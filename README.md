@@ -21,10 +21,10 @@ Switchboard V3 revolves around the concept of a `Switchboard Function`. Function
 
 ## Switchboard Feeds
 
-Switchboard Data Feeds are powered by Switchboard Functions. You can find the source code (contracts and off-chain logic) for the Switchboard Function that powers the available feeds in the [functions repository](https://github.com/switchboard-xyz/starknet-sdk/examples/OracleExample).
+Switchboard Data Feeds are powered by Switchboard Functions. You can find the source code (contracts and off-chain logic) for the Switchboard Function that powers the available feeds in the [functions repository](https://github.com/switchboard-xyz/starknet-sdk/tree/main/examples/OracleExample).
 
-- [receiver.cairo](https://github.com/switchboard-xyz/starknet-sdk/examples/OracleExample/contracts/PriceOracle/src/components/receiver.cairo) - The main entry point for the Switchboard Feed Function. This contract is deployed by the Switchboard, and is responsible for receiving data from the off-chain Switchboard Function, and making it available to other contracts.
-- [Main.rs](https://github.com/switchboard-xyz/starknet-sdk/examples/OracleExample/switchboard-function/src/main.rs) - The off-chain Switchboard Function that powers the Switchboard Feed. This function is responsible for fetching data from an external API, and submitting it to the Switchboard Receiver contract.
+- [receiver.cairo](https://github.com/switchboard-xyz/starknet-sdk/blob/main/examples/OracleExample/contracts/PriceOracle/src/components/receiver.cairo) - The main entry point for the Switchboard Feed Function. This contract is deployed by the Switchboard, and is responsible for receiving data from the off-chain Switchboard Function, and making it available to other contracts.
+- [Main.rs](https://github.com/switchboard-xyz/starknet-sdk/blob/main/examples/OracleExample/switchboard-function/src/main.rs) - The off-chain Switchboard Function that powers the Switchboard Feed. This function is responsible for fetching data from an external API, and submitting it to the Switchboard Receiver contract.
 
 You can find existing Switchboard Feeds and their ID's for accessing in solidity at [app.switchboard.xyz](https://app.switchboard.xyz/).
 
@@ -64,9 +64,8 @@ The easiest way to use Switchboard on Starknet is to use the following simple in
 trait ISwitchboardPush<State> {
     fn get_latest_result(self: @State, feed_id: felt252) -> (u128, u64);
 }
-```
 
-```cairo
+
 #[starknet::contract]
 mod MyProject {
     #[constructor]

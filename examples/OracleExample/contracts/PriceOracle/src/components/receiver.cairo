@@ -141,6 +141,7 @@ mod receiver_lib {
             if switchboard_function_address.is_zero() {
                 self.set_function_address(starknet::get_caller_address());
             }
+            assert(starknet::get_caller_address() == switchboard_function_address, 'InvalidCaller');
 
             // Add feed if it hasn't been set before (first caller is the switchboard function)
             let existing_value: u128 = self.feed_values_map.read(feed_id);
@@ -167,6 +168,7 @@ mod receiver_lib {
             if switchboard_function_address.is_zero() {
                 self.set_function_address(starknet::get_caller_address());
             }
+            assert(starknet::get_caller_address() == switchboard_function_address, 'InvalidCaller');
 
             // Make sure feed ids and values are the same length so there's no mismatch
             let len = feed_ids.len();

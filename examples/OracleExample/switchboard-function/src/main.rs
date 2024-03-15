@@ -46,7 +46,7 @@ pub async fn oracle_function(
     let prices: HashMap<String, Decimal> = exchange_api::get_prices().await;
 
     /*
-    
+
         Starknet-rs Call type we must return:
 
         #[derive(Debug, Clone)]
@@ -58,12 +58,12 @@ pub async fn oracle_function(
 
     */
     let expedited_tickers = vec![
-        "ETH/USD", 
-        "BTC/USD", 
+        "ETH/USD",
+        "BTC/USD",
     ];
 
     let tickers = vec![
-        "SOL/USD", 
+        "SOL/USD",
         "BNB/USDT",
         "XRP/USD",
         "ADA/USD",
@@ -103,7 +103,7 @@ pub async fn oracle_function(
     //==================================================================================================
     // Get all existing feed prices
     //==================================================================================================
-  
+
     // get a map of feeds to prices
     let mut feed_prices: HashMap<FieldElement, u128> = HashMap::new();
     for feed in feeds {
@@ -115,7 +115,7 @@ pub async fn oracle_function(
     let mut feed_values: Vec<FieldElement> = Vec::new();
 
     //==================================================================================================
-    // Handle Expedited Tickers (ETH/USD, BTC/USD) which should update with a 0.5% difference 
+    // Handle Expedited Tickers (ETH/USD, BTC/USD) which should update with a 0.5% difference
     //==================================================================================================
 
     // Create a call for each ticker
@@ -141,7 +141,7 @@ pub async fn oracle_function(
         // If the feed price is found, check if the price is greater than 0.5% different
         if let Some(fp) = existing_feed_price {
 
-            // If the price is greater than 1% different, update the price
+            // If the price is greater than 0.5% different, update the price
             if is_greater_than_specified_percentage_difference(*fp, u128_value, 0.5) {
                 feed_ids.push(*ticker_felt);
                 feed_values.push(new_value_felt);
@@ -150,13 +150,13 @@ pub async fn oracle_function(
         // If the feed price is not found, add the price
         } else {
             feed_ids.push(*ticker_felt);
-            feed_values.push(new_value_felt); 
+            feed_values.push(new_value_felt);
         }
     }
 
 
     //==================================================================================================
-    // Handle Expedited Tickers which should update with a 1.5% difference 
+    // Handle Tickers which should update with a 1.5% difference
     //==================================================================================================
 
     // Create a call for each ticker
@@ -170,7 +170,6 @@ pub async fn oracle_function(
         let ticker_felt = ticker_felts.first().unwrap();
         let existing_feed_price = feed_prices.get(ticker_felt);
 
-
         // Get the new price as a u128, scaled to 18 decimals (the same as the feed price)
         let mut new_price: Decimal = *prices.get(ticker).unwrap();
         new_price.rescale(18);
@@ -180,10 +179,10 @@ pub async fn oracle_function(
         let price_field_element: Vec<FieldElement> = decimal_to_felt(new_price).unwrap();
         let new_value_felt = price_field_element.first().unwrap().clone();
 
-        // If the feed price is found, check if the price is greater than 0.5% different
+        // If the feed price is found, check if the price is greater than 1.5% different
         if let Some(fp) = existing_feed_price {
 
-            // If the price is greater than 1% different, update the price
+            // If the price is greater than 1.5% different, update the price
             if is_greater_than_specified_percentage_difference(*fp, u128_value, 1.5) {
                 feed_ids.push(*ticker_felt);
                 feed_values.push(new_value_felt);
@@ -192,7 +191,7 @@ pub async fn oracle_function(
         // If the feed price is not found, add the price
         } else {
             feed_ids.push(*ticker_felt);
-            feed_values.push(new_value_felt); 
+            feed_values.push(new_value_felt);
         }
     }
 
@@ -204,7 +203,7 @@ pub async fn oracle_function(
         // Create the update callback data
         let mut update_calldata: Vec<FieldElement> = Vec::new();
 
-        // Add the feed ids array 
+        // Add the feed ids array
         update_calldata.push(FieldElement::from(feed_ids.len()));
         update_calldata.extend(feed_ids);
 
@@ -230,7 +229,7 @@ pub async fn oracle_function(
 
     if calls.len() == 0 {
         println!("No calls to be made");
-        
+
         // return an error
         return Err(SbFunctionError::CallbackError);
     }
@@ -277,9 +276,9 @@ mod tests {
     async fn test() {
         let prices: HashMap<String, Decimal> = exchange_api::get_prices().await;
         let tickers = vec![
-            "ETH/USD", 
-            "BTC/USD", 
-            "SOL/USD", 
+            "ETH/USD",
+            "BTC/USD",
+            "SOL/USD",
             "BNB/USDT",
             "XRP/USD",
             "ADA/USD",
@@ -333,7 +332,7 @@ mod tests {
                 let mut new_price: Decimal = *prices.get(ticker).unwrap();
                 new_price.rescale(18);
                 let u128_value: u128 = new_price.mantissa().try_into().unwrap();
-                
+
                 // If the price is greater than 0.5% different, update the price
                 if is_greater_than_specified_percentage_difference(*fp, u128_value, 1.0) {
                     println!("Updating price for {}", ticker);

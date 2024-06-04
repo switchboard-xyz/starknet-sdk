@@ -1,0 +1,1 @@
+export { getProgramAddress } from "./getProgramAddress";

@@ -11,7 +11,7 @@ A Typescript client to interact with Switchboard on Starknet.
         <img alt="NPM" src="https://img.shields.io/github/package-json/v/switchboard-xyz/starknet-sdk?color=red&filename=javascript%2Fstarknet.js%2Fpackage.json&label=%40switchboard-xyz%2Fstarknet.js&logo=npm">
     </a>
     <br/>
-    <a href="https://discord.gg/switchboardxyz">
+    <a href="https://discord.gg/TJAv6ZYvPC">
         <img alt="Discord" src="https://img.shields.io/discord/841525135311634443?color=blueviolet&logo=discord&logoColor=white">
     </a>
     <a href="https://twitter.com/switchboardxyz">
